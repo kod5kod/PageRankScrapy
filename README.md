@@ -34,7 +34,7 @@ pip install scrapy
 
 ```shell
 cd scrapy
-scrapy crawl pagerank
+scrapy crawl PageRank -a start='https://en.wikipedia.org/wiki/statistics' -a domain='en.wikipedia.org'
 ```
 
 
