@@ -4,12 +4,21 @@ from scrapy.loader import ItemLoader
 
 from pagerankspider.items import FromToItem
 
+# To import it :
+from scrapy.exceptions import CloseSpider
+
+
 
 class MySpider(scrapy.Spider):
     name = 'pagerank'
 
-    def __init__(self, start=None, domain=None, *args, **kwargs):
+    def __init__(self, start=None, domain=None,maxpages=None, *args, **kwargs):
         super(MySpider, self).__init__(*args, **kwargs)
+        if maxpages is None:
+            self.N = 70000000
+        else:
+            self.N = int(maxpages)
+        self.count = 0
         self.start_urls = []
         self.logger.info(start)
         if start is None:
@@ -28,6 +37,11 @@ class MySpider(scrapy.Spider):
             yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
+        # Return if more than N
+        if self.count >= self.N:
+            raise CloseSpider(f"\n\nSTUDENT--> SCRAPING SUCESS!! \nScraped {self.N} items. Eject! \nIF YOU SEE THIS MESSAGE, PROBABLY EVERYTHING WENT SMOOTHLY!\n\nIGNORE THE ERROR BELOW - FORCING EXIT")
+        # Increment to count by one:
+        self.count += 1
         link_extractor = LinkExtractor(allow_domains=self.allowed_domains, unique=False)
         links = link_extractor.extract_links(response)
         loader = ItemLoader(item=FromToItem(), response=response)
