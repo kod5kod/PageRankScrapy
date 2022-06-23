@@ -15,6 +15,16 @@ We use `scrapy` to collect page rank dataset.
 
 0. Create a python virtual environment
 
+First, make sure you have `pip` installed (or `conda/miniconda/miniforge` if you prefer)
+If you don't have `pip`:
+
+```
+sudo apt update
+sudo apt install python3-pip
+```
+(If you are using Ubuntu for Windows, and can't install pip, try: 
+https://askubuntu.com/questions/1254309/not-installing-pip-on-ubuntu-20-04)
+
 You can use the virtual env package of your choice (pip,conda,etc.). 
 Use python 3.10 as the virtual env python version. 
 Perform all operations inside your virual env. 
@@ -34,7 +44,7 @@ pip install scrapy
 
 ```shell
 cd scrapy
-scrapy crawl PageRank -a start='https://en.wikipedia.org/wiki/statistics' -a domain='en.wikipedia.org'
+scrapy crawl pagerank -a start='https://en.wikipedia.org/wiki/statistics' -a domain='en.wikipedia.org' -a maxpages=500000
 ```
 
 
