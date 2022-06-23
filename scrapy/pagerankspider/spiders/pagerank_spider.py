@@ -1,5 +1,5 @@
 import scrapy
-from scrapy.linkextractor import LinkExtractor
+from scrapy.linkextractors import LinkExtractor
 from scrapy.loader import ItemLoader
 
 from pagerankspider.items import FromToItem
