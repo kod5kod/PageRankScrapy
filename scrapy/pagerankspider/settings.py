@@ -18,6 +18,9 @@ DEPTH_LIMIT = 5
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'pagerankspider (+http://www.yourdomain.com)'
 
+# Close the scraper after AROUND N pages are scraped:
+CLOSESPIDER_PAGECOUNT = 50000
+
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
 

@@ -37,18 +37,17 @@ class MySpider(scrapy.Spider):
             yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
-        # Return if more than N
-        if self.count >= self.N:
-            raise CloseSpider(f"\n\nSTUDENT--> SCRAPING SUCESS!! \nScraped {self.N} items. Eject! \nIF YOU SEE THIS MESSAGE, PROBABLY EVERYTHING WENT SMOOTHLY!\n\nIGNORE THE ERROR BELOW - FORCING EXIT")
-        # Increment to count by one:
-        self.count += 1
-        if self.count%50000==0:
-            print("Parsed {:,} pages".format(self.count))
         link_extractor = LinkExtractor(allow_domains=self.allowed_domains, unique=False)
         links = link_extractor.extract_links(response)
         loader = ItemLoader(item=FromToItem(), response=response)
         loader.add_value('origin', response.request.url)
         seen = set()
+        scrape_count = self.crawler.stats.get_value('item_scraped_count')
+        if scrape_count:
+            print("\nscrape count: ",scrape_count,"\n")
+            if scrape_count >= self.N:
+                raise CloseSpider(f"\n\nSTUDENT--> SCRAPING SUCESS!! \nScraped {self.N} items. Eject! \nIF YOU SEE THIS MESSAGE, PROBABLY EVERYTHING WENT SMOOTHLY!\n\nIGNORE THE ERROR BELOW - FORCING EXIT")
+            
         for link in links:
             url = link.url
             if url in seen or len(url) > 50 or '?' in url or '#' in url or '%' in url:
