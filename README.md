@@ -44,9 +44,10 @@ pip install scrapy
 
 ```shell
 cd scrapy
-scrapy crawl pagerank -a start='https://en.wikipedia.org/wiki/statistics' -a domain='en.wikipedia.org' -a maxpages=500000
+scrapy crawl pagerank -a start='https://en.wikipedia.org/wiki/statistics' -a domain='en.wikipedia.org' -a maxpages=50000
 ```
 
+The process should exist when around 1,000,000 pages (in total, distinct scrapped) are written to keyvalue. 
 
 ## Dataset
 
