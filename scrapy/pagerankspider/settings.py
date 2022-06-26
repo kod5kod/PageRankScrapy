@@ -19,7 +19,7 @@ DEPTH_LIMIT = 5
 #USER_AGENT = 'pagerankspider (+http://www.yourdomain.com)'
 
 # Close the scraper after AROUND N pages are scraped:
-CLOSESPIDER_PAGECOUNT = 50000
+CLOSESPIDER_PAGECOUNT = 47000
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
