@@ -15,7 +15,7 @@ class MySpider(scrapy.Spider):
     def __init__(self, start=None, domain=None,maxpages=None, *args, **kwargs):
         super(MySpider, self).__init__(*args, **kwargs)
         if maxpages is None:
-            self.N = 70000000
+            self.N = 7000000
         else:
             self.N = int(maxpages)
         self.count = 0
@@ -42,6 +42,8 @@ class MySpider(scrapy.Spider):
             raise CloseSpider(f"\n\nSTUDENT--> SCRAPING SUCESS!! \nScraped {self.N} items. Eject! \nIF YOU SEE THIS MESSAGE, PROBABLY EVERYTHING WENT SMOOTHLY!\n\nIGNORE THE ERROR BELOW - FORCING EXIT")
         # Increment to count by one:
         self.count += 1
+        if self.count%50000==0:
+            print("Parsed {:,} pages".format(self.count))
         link_extractor = LinkExtractor(allow_domains=self.allowed_domains, unique=False)
         links = link_extractor.extract_links(response)
         loader = ItemLoader(item=FromToItem(), response=response)
